@@ -1,0 +1,61 @@
+---
+import "../styles/global.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = "Jetrol - Duty free petrol",
+	description = "Private jets don't pay duty on fuel. Jetrol is a duty-free petrol available for any winged vehicle.",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={canonicalURL} />
+		<!-- Poppins Google Font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap"
+			rel="stylesheet"
+		/>
+		<meta name="description" content={description} />
+		<title>{title}</title>
+
+		<!-- Open Graph / Twitter -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="twitter:card" content="summary" />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+
+		<!-- Umami Analytics (shared with olifro.st) -->
+		<script
+			defer
+			src="https://cloud.umami.is/script.js"
+			data-website-id="ea01c721-04db-4c01-9a97-ae88acb7ea7e"></script>
+	</head>
+	<body class="bg-white text-gray-900">
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		min-height: 100%;
+	}
+</style>
