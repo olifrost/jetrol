@@ -361,7 +361,7 @@ const learnMoreHref = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/learnmore`
 
 	const countUp = (el: HTMLElement) => {
 		const target = parseFloat(el.dataset.count ?? "0");
-		const duration = 1400;
+		const duration = 1800;
 		const start = performance.now();
 		const tick = (now: number) => {
 			const t = Math.min((now - start) / duration, 1);
@@ -372,26 +372,32 @@ const learnMoreHref = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/learnmore`
 		requestAnimationFrame(tick);
 	};
 
+	const reveal = (options: IntersectionObserverInit, onReveal: (el: HTMLElement) => void) =>
+		new IntersectionObserver((entries, observer) => {
+			for (const entry of entries) {
+				if (!entry.isIntersecting) continue;
+				onReveal(entry.target as HTMLElement);
+				observer.unobserve(entry.target);
+			}
+		}, options);
+
 	if (!reduceMotion && "IntersectionObserver" in window) {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				for (const entry of entries) {
-					if (!entry.isIntersecting) continue;
-					const el = entry.target as HTMLElement;
-					el.classList.add("is-in");
-					if (el.dataset.count !== undefined) countUp(el);
-					observer.unobserve(el);
-				}
-			},
-			{ threshold: 0.6 },
+		const blocks = reveal({ threshold: 0.6 }, (el) => el.classList.add("is-in"));
+		document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+			el.classList.add("will-reveal");
+			blocks.observe(el);
+		});
+
+		// Prices only start counting once they sit fully above the bottom third of the
+		// screen, so the count plays where the reader is looking, not at the edge.
+		const prices = reveal(
+			{ threshold: 1, rootMargin: "0px 0px -33% 0px" },
+			countUp,
 		);
-		document
-			.querySelectorAll<HTMLElement>("[data-reveal], [data-count]")
-			.forEach((el) => {
-				el.classList.add("will-reveal");
-				if (el.dataset.count !== undefined) el.textContent = "0.00p";
-				observer.observe(el);
-			});
+		document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
+			el.textContent = "0.00p";
+			prices.observe(el);
+		});
 	}
 </script>
 

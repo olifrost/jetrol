@@ -11,7 +11,9 @@ const {
 	description = "Private jets don't pay duty on fuel. Jetrol is a duty-free petrol available for any winged vehicle.",
 } = Astro.props;
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const shareImageURL = new URL(`${base}/jetrol-share.jpg`, Astro.site);
 ---
 
 <!doctype html>
@@ -21,6 +23,21 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="canonical" href={canonicalURL} />
+		<link
+			rel="icon"
+			type="image/png"
+			href={`${base}/favicon-96x96.png`}
+			sizes="96x96"
+		/>
+		<link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+		<link rel="shortcut icon" href={`${base}/favicon.ico`} />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href={`${base}/apple-touch-icon.png`}
+		/>
+		<meta name="apple-mobile-web-app-title" content="Jetrol" />
+		<link rel="manifest" href={`${base}/site.webmanifest`} />
 		<!-- Poppins Google Font -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,9 +53,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="twitter:card" content="summary" />
+		<meta property="og:image" content={shareImageURL} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="twitter:card" content="summary_large_image" />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={shareImageURL} />
 
 		<!-- Umami Analytics (shared with olifro.st) -->
 		<script
