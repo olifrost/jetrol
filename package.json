@@ -13,7 +13,7 @@
     "@tailwindcss/vite": "^4.1.15",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
-    "astro": "^6.4.2",
+    "astro": "^7.3.5",
     "lucide-astro": "^0.546.0",
     "lucide-react": "^0.546.0",
     "react": "^19.2.0",
