@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, viewport-fit=cover"
+		/>
+		<meta name="robots" content="noindex, nofollow" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="theme-color" content="#253370" />
+		<title>Jetrol discount</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			:root {
+				--navy: #253370;
+				--navy-deep: #1b2757;
+				--panel: rgba(255, 255, 255, 0.1);
+				--orange: #f16423;
+				--pink: #e70f88;
+				--yellow: #f8b50a;
+				--muted: rgba(255, 255, 255, 0.6);
+			}
+			* {
+				box-sizing: border-box;
+				-webkit-tap-highlight-color: transparent;
+			}
+			html,
+			body {
+				margin: 0;
+				background: var(--navy);
+				color: #fff;
+				font-family: "Poppins", ui-sans-serif, system-ui, -apple-system,
+					sans-serif;
+			}
+			main {
+				position: relative;
+				min-height: 100dvh;
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+				padding: max(20px, env(safe-area-inset-top)) 16px
+					max(20px, env(safe-area-inset-bottom));
+			}
+			header {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				letter-spacing: 0.3em;
+				font-size: 14px;
+				font-weight: 600;
+			}
+			.icon-btn {
+				appearance: none;
+				border: 1px solid rgba(255, 255, 255, 0.5);
+				border-radius: 999px;
+				background: none;
+				color: #fff;
+				font: inherit;
+				font-size: 13px;
+				letter-spacing: 0.15em;
+				min-height: 44px;
+				padding: 0 18px;
+			}
+			.toggle {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 8px;
+			}
+			.toggle button {
+				appearance: none;
+				border: 0;
+				border-radius: 16px;
+				padding: 16px 8px;
+				background: var(--panel);
+				color: var(--muted);
+				font: inherit;
+				font-size: 20px;
+				font-weight: 600;
+				line-height: 1.2;
+			}
+			.toggle button small {
+				display: block;
+				margin-top: 2px;
+				font-size: 13px;
+				font-weight: 400;
+			}
+			.toggle button[aria-pressed="true"] {
+				background: var(--orange);
+				color: #fff;
+			}
+			label {
+				color: var(--muted);
+				font-size: 13px;
+				text-transform: uppercase;
+				letter-spacing: 0.15em;
+			}
+			input {
+				width: 100%;
+				margin-top: 6px;
+				padding: 10px 16px;
+				border: 2px solid transparent;
+				border-radius: 16px;
+				background: var(--panel);
+				color: #fff;
+				font: inherit;
+				font-size: 52px;
+				font-weight: 600;
+				outline: none;
+			}
+			input:focus {
+				border-color: var(--yellow);
+			}
+			input::placeholder {
+				color: rgba(255, 255, 255, 0.3);
+			}
+			.result {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				text-align: center;
+			}
+			.result .label {
+				color: var(--muted);
+				font-size: 13px;
+				text-transform: uppercase;
+				letter-spacing: 0.15em;
+			}
+			#discount {
+				font-size: clamp(64px, 24vw, 130px);
+				font-weight: 700;
+				line-height: 1.1;
+				font-variant-numeric: tabular-nums;
+				background: linear-gradient(90deg, var(--pink), var(--orange), var(--yellow));
+				-webkit-background-clip: text;
+				background-clip: text;
+				color: transparent;
+			}
+			#pay {
+				margin-top: 8px;
+				color: var(--muted);
+				font-size: 20px;
+				font-variant-numeric: tabular-nums;
+			}
+
+			/* Settings pane */
+			#settings {
+				position: absolute;
+				inset: 0;
+				z-index: 10;
+				display: none;
+				flex-direction: column;
+				gap: 16px;
+				padding: max(20px, env(safe-area-inset-top)) 16px
+					max(20px, env(safe-area-inset-bottom));
+				background: var(--navy-deep);
+			}
+			#settings.open {
+				display: flex;
+			}
+			#settings input {
+				font-size: 32px;
+			}
+			#settings .row small {
+				display: block;
+				margin-top: 6px;
+				color: var(--muted);
+				font-size: 12px;
+			}
+			.actions {
+				margin-top: auto;
+				display: flex;
+				gap: 8px;
+			}
+			.actions button {
+				flex: 1;
+			}
+			.actions .primary {
+				background: var(--orange);
+				border-color: var(--orange);
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<header>
+				<span>JETROL</span>
+				<button class="icon-btn" id="open-settings" type="button">
+					PRICES
+				</button>
+			</header>
+
+			<div class="toggle" role="group" aria-label="Fuel type">
+				<button type="button" data-fuel="unleaded" aria-pressed="true">
+					Unleaded<small id="p-unleaded"></small>
+				</button>
+				<button type="button" data-fuel="diesel" aria-pressed="false">
+					Diesel<small id="p-diesel"></small>
+				</button>
+			</div>
+
+			<div>
+				<label for="litres">Litres</label>
+				<input
+					id="litres"
+					type="text"
+					inputmode="decimal"
+					autocomplete="off"
+					placeholder="0"
+					autofocus
+				/>
+			</div>
+
+			<div class="result">
+				<div class="label">Discount</div>
+				<div id="discount">£0.00</div>
+				<div id="pay">Customer pays £0.00</div>
+			</div>
+
+			<section id="settings" aria-label="Price settings">
+				<header>
+					<span>PRICES</span>
+				</header>
+				<div class="row">
+					<label for="s-off">Discount (p off per litre)</label>
+					<input id="s-off" type="text" inputmode="decimal" />
+				</div>
+				<div class="row">
+					<label for="s-unleaded">Unleaded (p per litre)</label>
+					<input id="s-unleaded" type="text" inputmode="decimal" />
+				</div>
+				<div class="row">
+					<label for="s-diesel">Diesel (p per litre)</label>
+					<input id="s-diesel" type="text" inputmode="decimal" />
+					<small>Changes are saved on this device automatically.</small>
+				</div>
+				<div class="actions">
+					<button class="icon-btn" id="reset" type="button">RESET</button>
+					<button class="icon-btn primary" id="close-settings" type="button">
+						DONE
+					</button>
+				</div>
+			</section>
+		</main>
+
+		<script>
+			const DEFAULTS = { off: 52.95, unleaded: 179.9, diesel: 205.9 };
+			type Prices = typeof DEFAULTS;
+			const KEY = "jetrol-calculator-prices";
+
+			function load(): Prices {
+				try {
+					const saved = JSON.parse(localStorage.getItem(KEY) || "{}");
+					const out = { ...DEFAULTS };
+					for (const k of Object.keys(DEFAULTS) as (keyof Prices)[]) {
+						if (typeof saved[k] === "number" && saved[k] >= 0) out[k] = saved[k];
+					}
+					return out;
+				} catch {
+					return { ...DEFAULTS };
+				}
+			}
+			function save() {
+				try {
+					localStorage.setItem(KEY, JSON.stringify(prices));
+				} catch {}
+			}
+
+			let prices = load();
+			let fuel: "unleaded" | "diesel" = "unleaded";
+
+			const $ = (id: string) => document.getElementById(id) as HTMLInputElement;
+			const litresEl = $("litres");
+			const settings = $("settings");
+			const fields = { off: $("s-off"), unleaded: $("s-unleaded"), diesel: $("s-diesel") };
+			const buttons = document.querySelectorAll<HTMLButtonElement>("[data-fuel]");
+
+			const gbp = (pence: number) => "£" + (pence / 100).toFixed(2);
+			const num = (s: string) => parseFloat(s.replace(",", "."));
+
+			function render() {
+				$("p-unleaded").textContent = prices.unleaded + "p/L";
+				$("p-diesel").textContent = prices.diesel + "p/L";
+				const litres = num(litresEl.value) || 0;
+				const discount = Math.round(litres * prices.off);
+				const total = Math.round(litres * prices[fuel]);
+				$("discount").textContent = gbp(discount);
+				$("pay").textContent = "Customer pays " + gbp(Math.max(0, total - discount));
+			}
+
+			function fillSettings() {
+				for (const k of Object.keys(fields) as (keyof Prices)[]) {
+					fields[k].value = String(prices[k]);
+				}
+			}
+
+			buttons.forEach((b) =>
+				b.addEventListener("click", () => {
+					fuel = b.dataset.fuel as typeof fuel;
+					buttons.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+					render();
+					litresEl.focus();
+				}),
+			);
+			litresEl.addEventListener("input", render);
+
+			for (const k of Object.keys(fields) as (keyof Prices)[]) {
+				fields[k].addEventListener("input", () => {
+					const v = num(fields[k].value);
+					if (Number.isFinite(v) && v >= 0) {
+						prices[k] = v;
+						save();
+						render();
+					}
+				});
+			}
+
+			$("open-settings").addEventListener("click", () => {
+				fillSettings();
+				settings.classList.add("open");
+			});
+			$("close-settings").addEventListener("click", () => {
+				fillSettings(); // snap any half-typed field back to the saved value
+				settings.classList.remove("open");
+				litresEl.focus();
+			});
+			$("reset").addEventListener("click", () => {
+				prices = { ...DEFAULTS };
+				save();
+				fillSettings();
+				render();
+			});
+
+			render();
+		</script>
+	</body>
+</html>
