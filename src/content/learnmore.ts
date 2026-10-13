@@ -30,21 +30,9 @@ export const lm = {
     body1:
       "Right now, a drive to the shops incurs more fuel duty than a billionaire taking a jet to Dubai.",
     body2:
-      "The crazy thing about this is that private jet fuel is actually subject to a tax, but at the same time it's exempt from paying that tax, so of course the tax never gets paid.",
+      "A fairer system of taxation on private jets could raise up to £2.7 billion a year, according to analysis by Possible, which could help fund essential public services such as the NHS, schools, or investment in warm homes and lower energy bills - while finally bringing tax rates for private jet passengers closer to those paid by ordinary travellers in economy class seats.",
     body3:
-      "Governments should properly tax private jet fuel to help fund the things we all rely on from the people who can afford to pay.",
-    body4Before:
-      "A levy on premium travel — private jet flights and first and business class tickets — could raise ",
-    body4LinkText: "up to €43 billion every year",
-    body4After:
-      " to pay for essential public services like healthcare, schools, transport, infrastructure, and disaster preparedness.",
-    body4Href: "https://solidaritylevies.org/premium-flyers-solidarity-coalition/",
-    body5Before:
-      "And: Governments across Europe should also close the private jet loophole in the EU ETS revision this July. This could raise between ",
-    body5LinkText: "€304 million and €2.2 billion annually by 2030",
-    body5After: ".",
-    body5Href:
-      "https://carbonmarketwatch.org/publications/sky-polluters-time-to-chip-in-citizens-time-to-cash-in/",
+      "New polling shows that nearly 8 in 10 people (79%) support higher taxes on private jets. Support for a private jet tax comes from voters of all major parties, including Labour, Conservative, and Reform, with a majority thinking that this tax would be beneficial to the UK economy.",
     cta: "Join the campaign",
     ctaHref: "https://action.wearepossible.org/page/180469/action/1",
   },
